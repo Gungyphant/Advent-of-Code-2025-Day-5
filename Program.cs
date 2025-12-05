@@ -42,12 +42,9 @@
         }
         public static string PartTwo(string data)
         {
-            List<long> foundFresh = new List<long>();
-            int n = 0;
-            int length = data.Split(Environment.NewLine).Length;
+            List<Tuple<long, long>> ranges = new List<Tuple<long, long>>();
             foreach (string line in data.Split(Environment.NewLine))
             {
-                Console.WriteLine(n/length);
                 if (line == "")
                 {
                     break;
@@ -56,17 +53,29 @@
                 {
                     long startID = Convert.ToInt64(line.Split("-")[0]);
                     long endID = Convert.ToInt64(line.Split("-")[1]);
-                    for (long freshID = startID; freshID <= endID; freshID++)
+                    for (int i=0; i <= ranges.Count; i++)
                     {
-                        if (!foundFresh.Contains(freshID))
-                        {
-                            foundFresh.Add(freshID);
-                        }
+                        Tuple<long, long> range = ranges[i];
+                        long rangeStart = range.Item1;
+                        long rangeEnd = range.Item2;
+                        bool extendedRange = false;
+                        
                     }
+                    ranges.Add(new Tuple<long, long>(startID, endID));
                 }
-                n++;
             }
-            return Convert.ToString(foundFresh.Count);
+            // load in, then iteratively do this, moving to next first after extrendedRange, and repeat until no changes
+            foreach (Tuple<long, long> potentiallyOverwrittenRange in ranges)
+            {
+                long potentiallyOverwrittenRangeStart = potentiallyOverwrittenRange.Item1;
+                long potentiallyOverwrittenRangeEnd = potentiallyOverwrittenRange.Item2;
+                foreach (Tuple<long, long> potentiallyOverwritingRange in ranges)
+                {
+                    long potentiallyOverwritingRangeStart = potentiallyOverwritingRange.Item1;
+                    long potentiallyOverwritingRangeEnd = potentiallyOverwritingRange.Item2;
+                }
+            }
+            return "";
         }
         static void Main()
         {
